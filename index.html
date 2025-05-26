@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHAMKU Birthday Code Challenge</title>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #fdf6e3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .morse-input {
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 400px;
+      margin: 1rem 0;
+    }
+    .button {
+      background-color: #ffb6c1;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    #message, #finalMessage {
+      margin-top: 1rem;
+      font-size: 1.4rem;
+      color: #228b22;
+    }
+    #translationSection {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+  <h1>🔐 TECHNICAL ASSESMENT</h1>
+  <p>What coding language is the right one for this challenge?</p>
+  <h4 style="font-style: italic; font-weight: 700; text-decoration: underline;">Solve this riddle and you will know what coding language is BEST used for this technical assesment:<br> </h4>
+    
+    <p>
+    
+        I don't need Python, Java, or C,<br>
+    No laptop or IDE for me.<br>
+    With simple dots and dashes bright,<br>
+    I send my message day or night.<br>
+    
+    Before Wi-Fi, I was the way<br>
+    To tell the world just what to say.<br>
+    Engineers still know my name—<br>
+    Can you now guess this coding game?<br>
+
+    What kind of code am I?<br>
+
+    </p>
+
+
+
+  <p>First step: Enter the code for the pattern:</p>
+  <!-- <p>Hint: A = ".-", B = "-..."</p> -->
+  <input type="text" id="morseInput" class="morse-input" placeholder="Enter code with spaces...">
+  <button class="button" onclick="checkInitialCode()">Submit</button>
+  <p id="finalMessage"></p>
+
+  <div id="translationSection">
+    <p>Decode this code message: <strong>- --.. . / -.-- --- / - --.. ..- ....</strong></p>
+    <p>Hint: Use spaces between each letter when decoding. (It's an inside joke from high school)</p>
+    <input type="text" id="translationInput" class="morse-input" placeholder="Type the translation here...">
+    <button class="button" onclick="checkTranslation()">Submit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    (function() {
+      emailjs.init("QNvPHSKm-OmtYbI9m");
+    })();
+
+    const correctSequence = ['-...', '.-', '-...', '.-', '.-', '-...'].join(' ');
+    const correctTranslation = "Tze Yo Tzuh".toLowerCase();
+
+    function checkInitialCode() {
+      const input2 = document.getElementById('morseInput').value.trim();
+      const finalMessage = document.getElementById('finalMessage');
+
+      if (input2 === correctSequence) {
+        finalMessage.textContent = "✅ wow YOU'VE DONE IT! Now unlock the final birthday message...";
+        document.getElementById('translationSection').style.display = 'block';
+      } else {
+        finalMessage.textContent = "❌ Hmm... you lowkey kinda stupid hhehee. Try again 🥱";
+      }
+    }
+
+    function checkTranslation() {
+      const input = document.getElementById('translationInput').value.trim().toLowerCase();
+      const message = document.getElementById('message');
+
+      if (input === correctTranslation) {
+        sendEmail();
+        message.innerHTML = "Congrats you have completed the coding challenge sucssfully. Make sure to check your emails in the coming up days to get an update on your application status!";
+      } else {
+        message.textContent = "❌ not quite stupid TRY AGAIN SMH.";
+      }
+    }
+
+    function sendEmail() {
+      emailjs.send("service_c1u7glx", "template_pdpdptj", {
+        to_name: "sham",
+        from_name: "SHAMKU",
+        message: "test email from sham"
+      })
+      .then(function(response) {
+        console.log("Email sent!", response.status, response.text);
+      }, function(error) {
+        console.error("Email sending failed...", error);
+      });
+    }
+  </script>
+</body>
+</html>
